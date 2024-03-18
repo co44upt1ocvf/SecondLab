@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище circusModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="circus_events">
+          <Key>
+            <PropertyRef Name="event_ID" />
+          </Key>
+          <Property Name="event_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="event_date" Type="date" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="customer_ID" />
+          </Key>
+          <Property Name="customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="surnamre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="ticket_ID" />
+          </Key>
+          <Property Name="ticket_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event_ID" Type="int" />
+          <Property Name="customer_ID" Type="int" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tickets__custome__3F466844">
+          <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="customer_ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tickets__event_I__3E52440B">
+          <End Role="circus_events" Type="Self.circus_events" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="circus_events">
+              <PropertyRef Name="event_ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="event_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище circusModelContainer">
+          <EntitySet Name="circus_events" EntityType="Self.circus_events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tickets__custome__3F466844" Association="Self.FK__tickets__custome__3F466844">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tickets__event_I__3E52440B" Association="Self.FK__tickets__event_I__3E52440B">
+            <End Role="circus_events" EntitySet="circus_events" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="circusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="circus_events">
+          <Key>
+            <PropertyRef Name="event_ID" />
+          </Key>
+          <Property Name="event_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK__tickets__event_I__3E52440B" FromRole="circus_events" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="customer_ID" />
+          </Key>
+          <Property Name="customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="surnamre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK__tickets__custome__3F466844" FromRole="customers" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="ticket_ID" />
+          </Key>
+          <Property Name="ticket_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="event_ID" Type="Int32" />
+          <Property Name="customer_ID" Type="Int32" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="circus_events" Relationship="Self.FK__tickets__event_I__3E52440B" FromRole="tickets" ToRole="circus_events" />
+          <NavigationProperty Name="customers" Relationship="Self.FK__tickets__custome__3F466844" FromRole="tickets" ToRole="customers" />
+        </EntityType>
+        <Association Name="FK__tickets__event_I__3E52440B">
+          <End Role="circus_events" Type="Self.circus_events" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="circus_events">
+              <PropertyRef Name="event_ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="event_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tickets__custome__3F466844">
+          <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="customer_ID" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="circusEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="circus_events" EntityType="Self.circus_events" />
+          <EntitySet Name="customers" EntityType="Self.customers" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" />
+          <AssociationSet Name="FK__tickets__event_I__3E52440B" Association="Self.FK__tickets__event_I__3E52440B">
+            <End Role="circus_events" EntitySet="circus_events" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tickets__custome__3F466844" Association="Self.FK__tickets__custome__3F466844">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище circusModelContainer" CdmEntityContainer="circusEntities">
+          <EntitySetMapping Name="circus_events">
+            <EntityTypeMapping TypeName="circusModel.circus_events">
+              <MappingFragment StoreEntitySet="circus_events">
+                <ScalarProperty Name="event_ID" ColumnName="event_ID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="circusModel.customers">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="customer_ID" ColumnName="customer_ID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surnamre" ColumnName="surnamre" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets">
+            <EntityTypeMapping TypeName="circusModel.tickets">
+              <MappingFragment StoreEntitySet="tickets">
+                <ScalarProperty Name="ticket_ID" ColumnName="ticket_ID" />
+                <ScalarProperty Name="event_ID" ColumnName="event_ID" />
+                <ScalarProperty Name="customer_ID" ColumnName="customer_ID" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

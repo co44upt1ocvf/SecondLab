@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2182704401184fc485e5d5b424331897" Name="Diagram1">
+        <EntityTypeShape EntityType="circusModel.circus_events" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="circusModel.customers" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="circusModel.tickets" Width="1.5" PointX="3.625" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="circusModel.FK__tickets__event_I__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="circusModel.FK__tickets__custome__3F466844" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
